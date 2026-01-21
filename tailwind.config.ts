@@ -204,7 +204,7 @@ export default {
   					opacity: '1'
   				}
   			},
-  			'shimmer': {
+  			shimmer: {
   				'0%': {
   					backgroundPosition: '-200% 0'
   				},
@@ -228,7 +228,7 @@ export default {
   					strokeDashoffset: '0'
   				}
   			},
-  			'confetti': {
+  			confetti: {
   				'0%': {
   					transform: 'translateY(0) translateX(0) scale(1)',
   					opacity: '1'
@@ -238,7 +238,7 @@ export default {
   					opacity: '0'
   				}
   			},
-  			'ripple': {
+  			ripple: {
   				'0%': {
   					transform: 'scale(0)',
   					opacity: '0.5'
@@ -276,11 +276,11 @@ export default {
   			'pin-bounce': 'pin-bounce 0.3s ease-out',
   			'check-draw': 'check-draw 0.5s ease-out forwards',
   			'scale-in': 'scale-in 0.2s ease-out',
-  			'shimmer': 'shimmer 2s linear infinite',
+  			shimmer: 'shimmer 2s linear infinite',
   			'circle-draw': 'circle-draw 0.6s ease-out forwards',
   			'check-path': 'check-path 0.3s ease-out 0.4s forwards',
-  			'confetti': 'confetti 0.8s ease-out forwards',
-  			'ripple': 'ripple 0.6s ease-out',
+  			confetti: 'confetti 0.8s ease-out forwards',
+  			ripple: 'ripple 0.6s ease-out',
   			'bounce-in': 'bounce-in 0.5s ease-out'
   		}
   	}
