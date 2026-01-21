@@ -14,7 +14,8 @@ export function AppHeader({ title, showNotifications = true, rightElement }: App
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">LP</span>
+            <img src="/lot-de-2-logos-la-poste-2024.jpg" alt="Project logo" className="w-25 h-25 object-contain" />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
           </div>
           <h1 className="text-lg font-semibold">{title}</h1>
         </div>
