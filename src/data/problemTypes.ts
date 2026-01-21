@@ -1,8 +1,8 @@
-import problemTooLow from "@/assets/problem-too-low.jpg";
-import problemTooFar from "@/assets/problem-too-far.jpg";
-import problemDog from "@/assets/problem-dog.jpg";
-import problemDangerous from "@/assets/problem-dangerous.jpg";
-import problemDamaged from "@/assets/problem-damaged.jpg";
+import problemTooLow from "@/assets/boite taille.png";
+import problemTooFar from "@/assets/problem-too-far-2.png";
+import problemDog from "@/assets/chien.png";
+import problemDangerous from "@/assets/danger.png";
+import problemDamaged from "@/assets/boite cassé.png";
 
 export interface ProblemType {
   id: string;
