@@ -1,14 +1,15 @@
-import { ChevronLeft, Mail, Phone, FileText, User, CheckCircle, AlertCircle } from "lucide-react";
+import { ChevronLeft, Mail, Phone, FileText, User, CheckCircle, AlertCircle, Camera, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatusBadge, type TicketStatus } from "@/components/ui/StatusBadge";
 
 interface TimelineEvent {
   id: string;
-  type: "declaration" | "email" | "response" | "call" | "letter" | "manager" | "resolved";
+  type: "declaration" | "email" | "response" | "call" | "letter" | "manager" | "resolved" | "photo" | "action";
   title: string;
   description?: string;
   date: string;
   time: string;
+  imageUrl?: string;
 }
 
 interface TicketTimelineProps {
@@ -29,6 +30,8 @@ const eventIcons: Record<string, typeof Mail> = {
   letter: FileText,
   manager: User,
   resolved: CheckCircle,
+  photo: Camera,
+  action: ClipboardCheck,
 };
 
 const eventColors: Record<string, string> = {
@@ -39,6 +42,8 @@ const eventColors: Record<string, string> = {
   letter: "bg-laposte-blue text-white",
   manager: "bg-status-pending text-white",
   resolved: "bg-status-resolved text-white",
+  photo: "bg-laposte-yellow text-laposte-blue",
+  action: "bg-status-action-required text-white",
 };
 
 export function TicketTimeline({
@@ -102,6 +107,15 @@ export function TicketTimeline({
                     <p className="text-sm text-muted-foreground">
                       {event.description}
                     </p>
+                  )}
+                  {event.imageUrl && (
+                    <div className="mt-2 rounded-lg overflow-hidden border border-border">
+                      <img
+                        src={event.imageUrl}
+                        alt="Photo jointe"
+                        className="w-full h-32 object-cover"
+                      />
+                    </div>
                   )}
                   <p className="text-xs text-muted-foreground mt-1">
                     {event.date}

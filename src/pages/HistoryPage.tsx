@@ -4,7 +4,7 @@ import { TicketTimeline } from "@/components/timeline/TicketTimeline";
 import { AppHeader } from "@/components/layout/AppHeader";
 import type { TicketStatus } from "@/components/ui/StatusBadge";
 
-// Mock ticket data
+// Mock ticket data - IDs unifiés au format TK-YYYY-NNNN
 const mockTicketData: Record<string, {
   address: string;
   reference: string;
@@ -12,16 +12,18 @@ const mockTicketData: Record<string, {
   status: TicketStatus;
   events: Array<{
     id: string;
-    type: "declaration" | "email" | "response" | "call" | "letter" | "manager" | "resolved";
+    type: "declaration" | "email" | "response" | "call" | "letter" | "manager" | "resolved" | "photo" | "action";
     title: string;
     description?: string;
     date: string;
     time: string;
+    imageUrl?: string;
   }>;
 }> = {
-  "1": {
-    address: "45 Avenue des Champs",
-    reference: "BAL-75001-0156",
+  // Ticket 1 - Chien agressif (Signalé)
+  "TK-2026-0042": {
+    address: "12 Rue de la République",
+    reference: "BAL-75001-0042",
     problemType: "Présence de chien",
     status: "signaled",
     events: [
@@ -29,15 +31,109 @@ const mockTicketData: Record<string, {
         id: "e1",
         type: "declaration",
         title: "Déclaration créée",
-        description: "Chien agressif non attaché dans la propriété",
-        date: "21/01/2025",
+        description: "Chien agressif non attaché dans la propriété - Distribution impossible",
+        date: "21/01/2026",
         time: "09:15",
+        imageUrl: "/placeholder.svg",
+      },
+      {
+        id: "e2",
+        type: "action",
+        title: "Action assignée",
+        description: "Dépôt flyer de sensibilisation prévu",
+        date: "21/01/2026",
+        time: "10:00",
       },
     ],
   },
-  "2": {
+  // Ticket 2 - Boîte trop basse (En cours)
+  "TK-2026-0038": {
+    address: "45 Avenue des Champs",
+    reference: "BAL-75008-0038",
+    problemType: "Boîte trop basse",
+    status: "in-progress",
+    events: [
+      {
+        id: "e1",
+        type: "declaration",
+        title: "Déclaration créée",
+        description: "Boîte installée à 40cm du sol - Non conforme",
+        date: "18/01/2026",
+        time: "14:30",
+        imageUrl: "/placeholder.svg",
+      },
+      {
+        id: "e2",
+        type: "email",
+        title: "Mail envoyé au propriétaire",
+        description: "Demande de mise aux normes de la boîte aux lettres",
+        date: "19/01/2026",
+        time: "10:00",
+      },
+      {
+        id: "e3",
+        type: "response",
+        title: "Réponse reçue",
+        description: "Le propriétaire indique avoir rehaussé la boîte",
+        date: "22/01/2026",
+        time: "16:45",
+      },
+      {
+        id: "e4",
+        type: "action",
+        title: "Action assignée",
+        description: "Vérification terrain nécessaire - Reprendre photo",
+        date: "22/01/2026",
+        time: "17:00",
+      },
+    ],
+  },
+  // Ticket 3 - Chien attaché (En attente vérification)
+  "TK-2026-0025": {
     address: "8 Place du Marché",
-    reference: "BAL-75001-0089",
+    reference: "BAL-75001-0025",
+    problemType: "Présence de chien",
+    status: "action-required",
+    events: [
+      {
+        id: "e1",
+        type: "declaration",
+        title: "Déclaration créée",
+        description: "Chien non attaché lors des distributions",
+        date: "10/01/2026",
+        time: "08:45",
+        imageUrl: "/placeholder.svg",
+      },
+      {
+        id: "e2",
+        type: "email",
+        title: "Mail envoyé au propriétaire",
+        description: "Demande de mise en sécurité du chien",
+        date: "11/01/2026",
+        time: "09:00",
+      },
+      {
+        id: "e3",
+        type: "response",
+        title: "Réponse reçue",
+        description: "Le propriétaire confirme que le chien sera attaché",
+        date: "12/01/2026",
+        time: "14:30",
+      },
+      {
+        id: "e4",
+        type: "action",
+        title: "Action assignée - EN RETARD",
+        description: "Vérification terrain requise pour confirmer la mise en conformité",
+        date: "15/01/2026",
+        time: "09:00",
+      },
+    ],
+  },
+  // Ticket 4 - Accès dangereux (En cours)
+  "TK-2026-0051": {
+    address: "67 Rue Saint-Honoré",
+    reference: "BAL-75001-0051",
     problemType: "Accès dangereux",
     status: "in-progress",
     events: [
@@ -45,95 +141,110 @@ const mockTicketData: Record<string, {
         id: "e1",
         type: "declaration",
         title: "Déclaration créée",
-        description: "Escalier glissant et mal éclairé",
-        date: "18/01/2025",
-        time: "14:30",
+        description: "Escaliers glissants signalés - Risque de chute",
+        date: "20/01/2026",
+        time: "10:20",
+        imageUrl: "/placeholder.svg",
       },
       {
         id: "e2",
         type: "email",
         title: "Mail envoyé au propriétaire",
-        description: "Demande de mise aux normes de l'accès",
-        date: "19/01/2025",
-        time: "10:00",
+        description: "Rappel des obligations de sécurité d'accès",
+        date: "21/01/2026",
+        time: "09:00",
       },
       {
         id: "e3",
-        type: "response",
-        title: "Réponse reçue",
-        description: "Le propriétaire confirme les travaux sous 2 semaines",
-        date: "20/01/2025",
-        time: "16:45",
+        type: "action",
+        title: "Action assignée",
+        description: "Dépôt flyer rappelant les obligations de sécurité",
+        date: "21/01/2026",
+        time: "10:00",
       },
     ],
   },
-  "3": {
+  // Ticket 5 - Boîte réparée (Résolu)
+  "TK-2026-0019": {
     address: "23 Boulevard Haussmann",
-    reference: "BAL-75001-0201",
-    problemType: "Boîte trop basse",
+    reference: "BAL-75009-0019",
+    problemType: "Boîte détériorée",
     status: "resolved",
     events: [
       {
         id: "e1",
         type: "declaration",
         title: "Déclaration créée",
-        description: "Boîte installée à 40cm du sol",
-        date: "15/01/2025",
+        description: "Boîte aux lettres cassée - Serrure défectueuse",
+        date: "08/01/2026",
         time: "08:45",
+        imageUrl: "/placeholder.svg",
       },
       {
         id: "e2",
         type: "email",
         title: "Mail envoyé au propriétaire",
-        date: "15/01/2025",
+        description: "Demande de réparation urgente",
+        date: "08/01/2026",
         time: "14:00",
       },
       {
         id: "e3",
         type: "call",
         title: "Appel téléphonique effectué",
-        description: "Discussion avec le propriétaire",
-        date: "16/01/2025",
+        description: "Discussion avec le propriétaire - Accord pour réparation",
+        date: "09/01/2026",
         time: "11:30",
       },
       {
         id: "e4",
         type: "manager",
-        title: "Action manager",
-        description: "Validation de la solution proposée",
-        date: "17/01/2025",
+        title: "Validation manager",
+        description: "Validation de la solution proposée par le propriétaire",
+        date: "10/01/2026",
         time: "09:00",
       },
       {
         id: "e5",
+        type: "photo",
+        title: "Photo de vérification",
+        description: "Photo prise confirmant la réparation",
+        date: "15/01/2026",
+        time: "10:30",
+        imageUrl: "/placeholder.svg",
+      },
+      {
+        id: "e6",
         type: "resolved",
         title: "Problème résolu",
-        description: "Boîte rehaussée à la hauteur réglementaire",
-        date: "20/01/2025",
+        description: "Boîte remplacée par le propriétaire - Conforme",
+        date: "15/01/2026",
         time: "15:00",
       },
     ],
   },
-  "4": {
-    address: "67 Rue Saint-Honoré",
-    reference: "BAL-75001-0178",
-    problemType: "Autre problème technique",
+  // Ticket 6 - Boîte trop éloignée (En attente)
+  "TK-2026-0056": {
+    address: "15 Rue de Rivoli",
+    reference: "BAL-75004-0056",
+    problemType: "Boîte trop éloignée",
     status: "pending",
     events: [
       {
         id: "e1",
         type: "declaration",
         title: "Déclaration créée",
-        description: "Serrure de boîte défectueuse",
-        date: "12/01/2025",
-        time: "10:20",
+        description: "Boîte aux lettres située à plus de 100m de la voie publique",
+        date: "10/01/2026",
+        time: "11:00",
+        imageUrl: "/placeholder.svg",
       },
       {
         id: "e2",
         type: "letter",
         title: "Courrier envoyé",
-        description: "Mise en demeure de réparation",
-        date: "14/01/2025",
+        description: "Mise en demeure de rapprochement de la boîte",
+        date: "12/01/2026",
         time: "09:00",
       },
     ],
@@ -163,10 +274,12 @@ export default function HistoryPage() {
                     <span className={`status-badge status-${ticket.status}`}>
                       {ticket.status === "signaled" && "Signalé"}
                       {ticket.status === "in-progress" && "En cours"}
+                      {ticket.status === "action-required" && "Action requise"}
                       {ticket.status === "pending" && "En attente"}
                       {ticket.status === "resolved" && "Résolu"}
                     </span>
                   </div>
+                  <p className="text-xs text-muted-foreground mb-1">Réf: {id}</p>
                   <p className="text-sm text-muted-foreground">{ticket.address}</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     {ticket.events.length} étape{ticket.events.length > 1 ? "s" : ""}

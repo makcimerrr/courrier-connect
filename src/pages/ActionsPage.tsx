@@ -7,17 +7,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { CheckCircle2, Clock, AlertTriangle } from "lucide-react";
 
-// Mock data for actions
+// Mock data for actions - ticketRef correspond aux IDs dans HistoryPage
 const mockActions: Action[] = [
   {
     id: "1",
     type: "flyer",
     title: "Déposer flyer de sensibilisation",
-    description: "Boîte trop basse signalée - Informer le propriétaire des normes d'accessibilité",
+    description: "Chien agressif signalé - Informer le propriétaire des règles de sécurité",
     address: "12 Rue de la République",
     deadline: "23/01/2026",
     status: "pending",
-    ticketRef: "TK-2026-0042",
+    ticketRef: "TK-2026-0042", // Correspond au ticket "Présence de chien"
   },
   {
     id: "2",
@@ -27,7 +27,7 @@ const mockActions: Action[] = [
     address: "45 Avenue des Champs",
     deadline: "25/01/2026",
     status: "pending",
-    ticketRef: "TK-2026-0038",
+    ticketRef: "TK-2026-0038", // Correspond au ticket "Boîte trop basse"
   },
   {
     id: "3",
@@ -37,7 +37,7 @@ const mockActions: Action[] = [
     address: "8 Place du Marché",
     status: "overdue",
     deadline: "18/01/2026",
-    ticketRef: "TK-2026-0025",
+    ticketRef: "TK-2026-0025", // Correspond au ticket "Présence de chien" (action-required)
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ const mockActions: Action[] = [
     address: "67 Rue Saint-Honoré",
     deadline: "28/01/2026",
     status: "in_progress",
-    ticketRef: "TK-2026-0051",
+    ticketRef: "TK-2026-0051", // Correspond au ticket "Accès dangereux"
   },
   {
     id: "5",
@@ -56,7 +56,7 @@ const mockActions: Action[] = [
     description: "Boîte détériorée remplacée par le propriétaire",
     address: "23 Boulevard Haussmann",
     status: "completed",
-    ticketRef: "TK-2026-0019",
+    ticketRef: "TK-2026-0019", // Correspond au ticket "Boîte détériorée" (resolved)
   },
 ];
 
