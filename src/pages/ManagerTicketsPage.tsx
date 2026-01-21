@@ -489,7 +489,7 @@ export default function ManagerTicketsPage() {
             <TicketCard
               key={ticket.id}
               ticket={ticket}
-              onClick={() => navigate(`/history/${ticket.id}`)}
+              onClick={() => navigate(`/manager/tickets/${ticket.id}`)}
             />
           ))
         )}

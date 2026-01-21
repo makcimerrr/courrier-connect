@@ -11,6 +11,7 @@ import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import ManagerTicketsPage from "./pages/ManagerTicketsPage";
+import ManagerTicketDetailPage from "./pages/ManagerTicketDetailPage";
 import ManagerMapPage from "./pages/ManagerMapPage";
 import ManagerAnalyticsPage from "./pages/ManagerAnalyticsPage";
 import NotFound from "./pages/NotFound";
@@ -37,6 +38,7 @@ const App = () => (
           {/* Manager routes */}
           <Route path="/manager" element={<ManagerDashboard />} />
           <Route path="/manager/tickets" element={<ManagerTicketsPage />} />
+          <Route path="/manager/tickets/:ticketId" element={<ManagerTicketDetailPage />} />
           <Route path="/manager/map" element={<ManagerMapPage />} />
           <Route path="/manager/analytics" element={<ManagerAnalyticsPage />} />
           <Route path="/manager/team" element={<ManagerDashboard />} />
