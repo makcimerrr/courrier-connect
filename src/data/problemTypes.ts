@@ -1,8 +1,8 @@
-import problemTooLow from "@/assets/problem-too-low.jpg";
-import problemTooFar from "@/assets/problem-too-far.jpg";
-import problemDog from "@/assets/problem-dog.jpg";
-import problemDangerous from "@/assets/problem-dangerous.jpg";
-import problemDamaged from "@/assets/problem-damaged.jpg";
+import problemTooLow from "@/assets/boite taille.png";
+import problemTooFar from "@/assets/problem-too-far-2.png";
+import problemDog from "@/assets/chien.png";
+import problemDangerous from "@/assets/danger.png";
+import problemDamaged from "@/assets/boite cassé.png";
 
 export interface ProblemType {
   id: string;
@@ -18,13 +18,13 @@ export interface ProblemType {
 export const problemTypes: ProblemType[] = [
   {
     id: "too-low",
-    label: "Boîte trop basse",
-    shortLabel: "Trop basse",
+    label: "Hauteur inadaptée",
+    shortLabel: "Hauteur inadaptée",
     description: "Risque de TMS pour le facteur - Position penchée répétée",
     riskLevel: "medium",
     image: problemTooLow,
     suggestedComments: [
-      "Boîte située à moins de 50cm du sol",
+      "Boîte située trop haute",
       "Nécessite de se pencher excessivement",
       "Risque de douleurs dorsales à long terme",
       "Recommandation : rehausser la boîte à hauteur réglementaire"
