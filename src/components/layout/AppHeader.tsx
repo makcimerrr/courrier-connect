@@ -1,12 +1,14 @@
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
 interface AppHeaderProps {
   title: string;
   showNotifications?: boolean;
+  rightElement?: ReactNode;
 }
 
-export function AppHeader({ title, showNotifications = true }: AppHeaderProps) {
+export function AppHeader({ title, showNotifications = true, rightElement }: AppHeaderProps) {
   return (
     <header className="app-header">
       <div className="flex items-center justify-between px-4 py-3">
@@ -16,16 +18,18 @@ export function AppHeader({ title, showNotifications = true }: AppHeaderProps) {
           </div>
           <h1 className="text-lg font-semibold">{title}</h1>
         </div>
-        {showNotifications && (
+        {rightElement ? (
+          rightElement
+        ) : showNotifications ? (
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-secondary-foreground hover:bg-secondary-foreground/10"
+            className="text-secondary-foreground hover:bg-secondary-foreground/10 relative"
           >
             <Bell className="w-5 h-5" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
           </Button>
-        )}
+        ) : null}
       </div>
     </header>
   );

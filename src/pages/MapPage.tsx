@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileLayout } from "@/components/layout/MobileLayout";
 import { InteractiveMap } from "@/components/map/InteractiveMap";
-import { DeclarationForm } from "@/components/declarations/DeclarationForm";
+import { SmartDeclarationForm } from "@/components/declarations/SmartDeclarationForm";
 import { AppHeader } from "@/components/layout/AppHeader";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { toast } from "sonner";
 
 // Mock mailbox data for declaration
@@ -34,11 +35,17 @@ export default function MapPage() {
     setDeclaringMailboxId(null);
   };
 
+  const handleNotificationClick = (notification: { ticketRef?: string }) => {
+    if (notification.ticketRef) {
+      navigate(`/history/${notification.ticketRef}`);
+    }
+  };
+
   if (declaringMailboxId) {
     const mailbox = mockMailboxData[declaringMailboxId];
     return (
       <MobileLayout>
-        <DeclarationForm
+        <SmartDeclarationForm
           mailboxId={declaringMailboxId}
           mailboxAddress={mailbox?.address || "Adresse inconnue"}
           onSubmit={handleSubmitDeclaration}
@@ -51,7 +58,10 @@ export default function MapPage() {
   return (
     <MobileLayout>
       <div className="flex flex-col h-[calc(100vh-5rem)]">
-        <AppHeader title="Carte des BAL" />
+        <AppHeader 
+          title="Carte des BAL" 
+          rightElement={<NotificationBell onNotificationClick={handleNotificationClick} />}
+        />
         <div className="flex-1 relative">
           <InteractiveMap
             onDeclare={handleDeclare}
