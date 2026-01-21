@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileLayout } from "@/components/layout/MobileLayout";
-import { InteractiveMap } from "@/components/map/InteractiveMap";
 import { SmartDeclarationForm } from "@/components/declarations/SmartDeclarationForm";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
+import { InteractiveMap } from "@/components/map/InteractiveMap";
 import { toast } from "sonner";
 
-// Mock mailbox data for declaration
-const mockMailboxData: Record<string, { address: string }> = {
-  "1": { address: "12 Rue de la République" },
-  "2": { address: "45 Avenue des Champs" },
-  "3": { address: "8 Place du Marché" },
-  "4": { address: "23 Boulevard Haussmann" },
-  "5": { address: "67 Rue Saint-Honoré" },
+// Données mock des adresses pour le formulaire de déclaration
+const mockAddresses: Record<string, string> = {
+  "1": "12 Rue de la République",
+  "2": "45 Avenue des Champs",
+  "3": "8 Place du Marché",
+  "4": "23 Boulevard Haussmann",
+  "5": "67 Rue Saint-Honoré",
+  "6": "15 Rue de Rivoli",
+  "7": "92 Avenue Montaigne",
 };
 
 export default function MapPage() {
@@ -41,13 +43,14 @@ export default function MapPage() {
     }
   };
 
+  // Formulaire de déclaration
   if (declaringMailboxId) {
-    const mailbox = mockMailboxData[declaringMailboxId];
+    const address = mockAddresses[declaringMailboxId] || "Adresse inconnue";
     return (
       <MobileLayout>
         <SmartDeclarationForm
           mailboxId={declaringMailboxId}
-          mailboxAddress={mailbox?.address || "Adresse inconnue"}
+          mailboxAddress={address}
           onSubmit={handleSubmitDeclaration}
           onCancel={() => setDeclaringMailboxId(null)}
         />
@@ -58,8 +61,8 @@ export default function MapPage() {
   return (
     <MobileLayout>
       <div className="flex flex-col h-[calc(100vh-5rem)]">
-        <AppHeader 
-          title="Carte des BAL" 
+        <AppHeader
+          title="Carte des BAL"
           rightElement={<NotificationBell onNotificationClick={handleNotificationClick} />}
         />
         <div className="flex-1 relative">

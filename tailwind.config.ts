@@ -108,6 +108,53 @@ export default {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "ring-pulse": {
+          "0%": { transform: "scale(1)", opacity: "0.4" },
+          "50%": { transform: "scale(1.2)", opacity: "0.1" },
+          "100%": { transform: "scale(1)", opacity: "0.4" },
+        },
+        "urgent-pulse": {
+          "0%, 100%": { boxShadow: "0 0 0 0 hsl(var(--status-urgent) / 0.4)" },
+          "50%": { boxShadow: "0 0 0 8px hsl(var(--status-urgent) / 0)" },
+        },
+        "pin-bounce": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+        "check-draw": {
+          "0%": { strokeDashoffset: "50" },
+          "100%": { strokeDashoffset: "0" },
+        },
+        "scale-in": {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "circle-draw": {
+          "0%": { strokeDashoffset: "226" },
+          "100%": { strokeDashoffset: "0" },
+        },
+        "check-path": {
+          "0%": { strokeDashoffset: "24" },
+          "100%": { strokeDashoffset: "0" },
+        },
+        "confetti": {
+          "0%": { transform: "translateY(0) translateX(0) scale(1)", opacity: "1" },
+          "100%": { transform: "translateY(-60px) translateX(var(--confetti-x, 30px)) scale(0)", opacity: "0" },
+        },
+        "ripple": {
+          "0%": { transform: "scale(0)", opacity: "0.5" },
+          "100%": { transform: "scale(4)", opacity: "0" },
+        },
+        "bounce-in": {
+          "0%": { transform: "scale(0.3)", opacity: "0" },
+          "50%": { transform: "scale(1.05)" },
+          "70%": { transform: "scale(0.9)" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -115,6 +162,17 @@ export default {
         "pulse-soft": "pulse-soft 2s ease-in-out infinite",
         "slide-up": "slide-up 0.3s ease-out",
         "fade-in": "fade-in 0.2s ease-out",
+        "ring-pulse": "ring-pulse 2s ease-out infinite",
+        "urgent-pulse": "urgent-pulse 1s ease-in-out infinite",
+        "pin-bounce": "pin-bounce 0.3s ease-out",
+        "check-draw": "check-draw 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.2s ease-out",
+        "shimmer": "shimmer 2s linear infinite",
+        "circle-draw": "circle-draw 0.6s ease-out forwards",
+        "check-path": "check-path 0.3s ease-out 0.4s forwards",
+        "confetti": "confetti 0.8s ease-out forwards",
+        "ripple": "ripple 0.6s ease-out",
+        "bounce-in": "bounce-in 0.5s ease-out",
       },
     },
   },

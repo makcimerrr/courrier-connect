@@ -1,10 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* La Poste Design System - Professional Mobile App */
-
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -181,48 +181,165 @@
     background-color: hsl(var(--status-in-progress) / 0.15);
   }
 
-  /* Map Pin Styles */
+  /* Map Pin Styles - Enhanced */
   .map-pin {
-    @apply w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-transform duration-200;
+    @apply relative w-10 h-10 rounded-full flex items-center justify-center shadow-lg;
+    @apply transition-all duration-200 ease-out;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
-  
+
   .map-pin:hover {
     @apply scale-110;
   }
-  
+
+  .map-pin:active {
+    @apply scale-95;
+  }
+
   .map-pin-normal {
     background-color: hsl(var(--laposte-blue));
   }
-  
+
   .map-pin-signaled {
     background-color: hsl(var(--status-signaled));
   }
-  
+
   .map-pin-in-progress {
     background-color: hsl(var(--status-in-progress));
   }
-  
+
+  .map-pin-pending {
+    background-color: hsl(var(--status-pending));
+  }
+
   .map-pin-resolved {
     background-color: hsl(var(--status-resolved));
+  }
+
+  .map-pin-action-required {
+    background-color: hsl(var(--laposte-yellow));
+  }
+
+  /* Pin Ring Animation */
+  .map-pin-ring {
+    @apply absolute -inset-1 rounded-full pointer-events-none;
+  }
+
+  .map-pin-ring-signaled {
+    background-color: hsl(var(--status-signaled) / 0.3);
+    @apply animate-ring-pulse;
+  }
+
+  .map-pin-ring-in-progress {
+    background-color: hsl(var(--status-in-progress) / 0.3);
+    @apply animate-ring-pulse;
+  }
+
+  .map-pin-ring-action-required {
+    background-color: hsl(var(--laposte-yellow) / 0.4);
+    @apply animate-ring-pulse;
+  }
+
+  .map-pin-ring-urgent {
+    background-color: hsl(var(--status-urgent) / 0.3);
+    animation: ring-pulse 1s ease-out infinite;
+  }
+
+  /* Pin Badge (problem count) */
+  .map-pin-badge {
+    @apply absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1;
+    @apply bg-destructive text-white text-[10px] font-bold leading-none;
+    @apply rounded-full flex items-center justify-center;
+    @apply border-2 border-white shadow-sm;
+    @apply animate-scale-in;
+  }
+
+  .map-pin-badge-warning {
+    @apply bg-status-signaled;
+  }
+
+  .map-pin-badge-resolved {
+    @apply bg-status-resolved;
+  }
+
+  /* Pin Selected State */
+  .map-pin-selected {
+    @apply ring-2 ring-primary ring-offset-2 scale-110;
+  }
+
+  /* Pin Urgent State */
+  .map-pin-urgent {
+    @apply animate-urgent-pulse;
+  }
+
+  /* Pin Icon Container */
+  .map-pin-icon {
+    @apply relative z-10 flex items-center justify-center text-white;
+  }
+
+  /* Pin with pointer/tail */
+  .map-pin-pointer::after {
+    content: '';
+    @apply absolute -bottom-1 left-1/2 -translate-x-1/2;
+    @apply w-0 h-0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid currentColor;
+  }
+
+  .map-pin-normal.map-pin-pointer::after {
+    border-top-color: hsl(var(--laposte-blue));
+  }
+
+  .map-pin-signaled.map-pin-pointer::after {
+    border-top-color: hsl(var(--status-signaled));
+  }
+
+  .map-pin-in-progress.map-pin-pointer::after {
+    border-top-color: hsl(var(--status-in-progress));
+  }
+
+  .map-pin-resolved.map-pin-pointer::after {
+    border-top-color: hsl(var(--status-resolved));
   }
 
   /* Bottom Navigation */
   .bottom-nav {
     @apply fixed bottom-0 left-0 right-0 bg-card border-t border-border;
     padding-bottom: env(safe-area-inset-bottom, 0);
-    box-shadow: 0 -2px 10px hsl(220 60% 20% / 0.08);
+    box-shadow: 0 -4px 20px hsl(220 60% 20% / 0.1);
   }
-  
+
   .bottom-nav-item {
     @apply flex flex-col items-center justify-center gap-0.5 py-2 px-3 text-muted-foreground transition-colors duration-200;
   }
-  
+
   .bottom-nav-item.active {
     @apply text-secondary;
   }
-  
+
   .bottom-nav-item.active svg {
     color: hsl(var(--laposte-yellow));
+  }
+
+  /* FAB (Floating Action Button) */
+  .bottom-nav-fab {
+    @apply absolute -top-6 left-1/2 -translate-x-1/2;
+    @apply w-14 h-14 rounded-full;
+    @apply bg-primary shadow-lg;
+    @apply flex items-center justify-center;
+    @apply text-primary-foreground;
+    @apply transition-all duration-200;
+    box-shadow: 0 4px 14px hsl(var(--laposte-yellow) / 0.4);
+  }
+
+  .bottom-nav-fab:hover {
+    @apply scale-105;
+    box-shadow: 0 6px 20px hsl(var(--laposte-yellow) / 0.5);
+  }
+
+  .bottom-nav-fab:active {
+    @apply scale-95;
   }
 
   /* Card Styles */
@@ -264,10 +381,114 @@
   .pb-safe {
     padding-bottom: calc(env(safe-area-inset-bottom, 0) + 1rem);
   }
-  
+
   .pt-safe {
     padding-top: env(safe-area-inset-top, 0);
   }
+
+  /* Leaflet Map Overrides */
+  .leaflet-container {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    z-index: 1;
+  }
+
+  .leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .leaflet-control-zoom a {
+    @apply bg-card text-foreground border-none;
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 18px !important;
+  }
+
+  .leaflet-control-zoom a:hover {
+    @apply bg-muted;
+  }
+
+  .leaflet-control-zoom-in {
+    border-radius: 8px 8px 0 0 !important;
+  }
+
+  .leaflet-control-zoom-out {
+    border-radius: 0 0 8px 8px !important;
+  }
+
+  /* Custom Map Pin */
+  .custom-map-pin {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Cluster Markers */
+  .custom-cluster-icon {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .cluster-marker {
+    transition: transform 0.2s ease;
+  }
+
+  .cluster-marker:hover {
+    transform: scale(1.1);
+  }
+
+  /* User Location Marker */
+  .user-location-marker {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Leaflet Attribution */
+  .leaflet-control-attribution {
+    @apply bg-card/80 backdrop-blur-sm text-xs text-muted-foreground;
+    padding: 2px 6px !important;
+    border-radius: 4px 0 0 0 !important;
+  }
+
+  .leaflet-control-attribution a {
+    @apply text-secondary;
+  }
+
+  /* Tour number tooltip */
+  .tour-number-tooltip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .tour-number-tooltip::before {
+    display: none !important;
+  }
+
+  /* Scrollbar cachée pour les listes horizontales */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Animation confetti custom */
+  .animate-confetti {
+    --confetti-x: 30px;
+  }
+
+  .animate-confetti:nth-child(1) { --confetti-x: 30px; }
+  .animate-confetti:nth-child(2) { --confetti-x: -30px; }
+  .animate-confetti:nth-child(3) { --confetti-x: 20px; }
+  .animate-confetti:nth-child(4) { --confetti-x: -20px; }
+  .animate-confetti:nth-child(5) { --confetti-x: 40px; }
+  .animate-confetti:nth-child(6) { --confetti-x: -40px; }
+  .animate-confetti:nth-child(7) { --confetti-x: 15px; }
+  .animate-confetti:nth-child(8) { --confetti-x: -15px; }
 
   /* La Poste specific utilities */
   .bg-laposte-yellow {
