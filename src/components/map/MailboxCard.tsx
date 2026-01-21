@@ -1,4 +1,4 @@
-import { MapPin, Calendar, AlertTriangle, ChevronRight } from "lucide-react";
+import { MapPin, Calendar, AlertTriangle, ChevronRight, FileText, Plus } from "lucide-react";
 import { StatusBadge, type TicketStatus } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/button";
 
@@ -9,8 +9,9 @@ interface MailboxCardProps {
   lastInspection: string;
   problemCount: number;
   currentStatus?: TicketStatus;
+  ticketId?: string; // ID du ticket associé si problème existant
   onDeclare: () => void;
-  onViewDetails: () => void;
+  onViewTicket?: () => void; // Pour voir le ticket existant
 }
 
 export function MailboxCard({
@@ -19,9 +20,13 @@ export function MailboxCard({
   lastInspection,
   problemCount,
   currentStatus,
+  ticketId,
   onDeclare,
-  onViewDetails,
+  onViewTicket,
 }: MailboxCardProps) {
+  // Si problème existant (status actif et non résolu), afficher "Voir le ticket"
+  const hasActiveProblem = currentStatus && currentStatus !== "resolved" && problemCount > 0;
+
   return (
     <div className="mailbox-card animate-slide-up">
       <div className="flex justify-between items-start mb-3">
@@ -49,20 +54,25 @@ export function MailboxCard({
       </div>
 
       <div className="flex gap-2">
-        <Button
-          onClick={onDeclare}
-          className="flex-1 bg-primary text-primary-foreground hover:bg-laposte-yellow-dark font-semibold"
-        >
-          Déclarer un problème
-        </Button>
-        <Button
-          onClick={onViewDetails}
-          variant="outline"
-          size="icon"
-          className="border-border hover:bg-muted"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </Button>
+        {hasActiveProblem ? (
+          // Si problème existant, bouton pour voir le ticket
+          <Button
+            onClick={onViewTicket}
+            className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/90 font-semibold"
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Voir le ticket
+          </Button>
+        ) : (
+          // Sinon, bouton pour déclarer un nouveau problème
+          <Button
+            onClick={onDeclare}
+            className="flex-1 bg-primary text-primary-foreground hover:bg-laposte-yellow-dark font-semibold"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Déclarer un problème
+          </Button>
+        )}
       </div>
     </div>
   );
