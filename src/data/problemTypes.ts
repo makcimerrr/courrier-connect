@@ -18,13 +18,13 @@ export interface ProblemType {
 export const problemTypes: ProblemType[] = [
   {
     id: "too-low",
-    label: "Boîte trop basse",
-    shortLabel: "Trop basse",
+    label: "Hauteur inadaptée",
+    shortLabel: "Hauteur inadaptée",
     description: "Risque de TMS pour le facteur - Position penchée répétée",
     riskLevel: "medium",
     image: problemTooLow,
     suggestedComments: [
-      "Boîte située à moins de 50cm du sol",
+      "Boîte située trop haute",
       "Nécessite de se pencher excessivement",
       "Risque de douleurs dorsales à long terme",
       "Recommandation : rehausser la boîte à hauteur réglementaire"
