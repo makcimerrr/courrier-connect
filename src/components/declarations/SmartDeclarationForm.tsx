@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import { Camera, X, Send, ChevronLeft, ChevronRight, Sparkles, Info } from "lucide-react";
+import { Camera, X, Send, ChevronLeft, ChevronRight, Sparkles, Info, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ProblemTypeSelector } from "./ProblemTypeSelector";
@@ -10,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 interface SmartDeclarationFormProps {
   mailboxId: string;
-  mailboxAddress: string;
-  onSubmit: (data: { type: string; comment: string; photo?: string }) => void;
+  mailboxAddress?: string; // Optionnel pour les nouvelles déclarations depuis le FAB
+  onSubmit: (data: { type: string; comment: string; photo?: string; address?: string }) => void;
   onCancel: () => void;
 }
 

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { MobileLayout } from "@/components/layout/MobileLayout";
 import { SmartDeclarationForm } from "@/components/declarations/SmartDeclarationForm";
 import { AppHeader } from "@/components/layout/AppHeader";
@@ -7,34 +7,41 @@ import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { InteractiveMap } from "@/components/map/InteractiveMap";
 import { toast } from "sonner";
 
-// Données mock des adresses pour le formulaire de déclaration
-const mockAddresses: Record<string, string> = {
-  "1": "12 Rue de la République",
-  "2": "45 Avenue des Champs",
-  "3": "8 Place du Marché",
-  "4": "23 Boulevard Haussmann",
-  "5": "67 Rue Saint-Honoré",
-  "6": "15 Rue de Rivoli",
-  "7": "92 Avenue Montaigne",
-};
+interface DeclarationState {
+  mailboxId: string;
+  address: string;
+}
 
 export default function MapPage() {
   const navigate = useNavigate();
-  const [declaringMailboxId, setDeclaringMailboxId] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [declarationState, setDeclarationState] = useState<DeclarationState | null>(null);
 
-  const handleDeclare = (mailboxId: string) => {
-    setDeclaringMailboxId(mailboxId);
+  // Gestion du bouton FAB via query param
+  useEffect(() => {
+    const declareParam = searchParams.get("declare");
+    if (declareParam === "true") {
+      // Ouvrir le formulaire de déclaration sans BAL spécifique (nouvelle déclaration)
+      setDeclarationState({ mailboxId: "new", address: "" });
+      // Nettoyer le param
+      searchParams.delete("declare");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
+  const handleDeclare = (mailboxId: string, address: string) => {
+    setDeclarationState({ mailboxId, address });
   };
 
-  const handleViewDetails = (mailboxId: string) => {
-    navigate(`/history/${mailboxId}`);
+  const handleViewTicket = (ticketId: string) => {
+    navigate(`/history/${ticketId}`);
   };
 
   const handleSubmitDeclaration = (data: { type: string; comment: string; photo?: string }) => {
     toast.success("Déclaration envoyée avec succès", {
       description: "Votre signalement a été enregistré et sera traité rapidement.",
     });
-    setDeclaringMailboxId(null);
+    setDeclarationState(null);
   };
 
   const handleNotificationClick = (notification: { ticketRef?: string }) => {
@@ -44,15 +51,14 @@ export default function MapPage() {
   };
 
   // Formulaire de déclaration
-  if (declaringMailboxId) {
-    const address = mockAddresses[declaringMailboxId] || "Adresse inconnue";
+  if (declarationState) {
     return (
       <MobileLayout>
         <SmartDeclarationForm
-          mailboxId={declaringMailboxId}
-          mailboxAddress={address}
+          mailboxId={declarationState.mailboxId}
+          mailboxAddress={declarationState.address || undefined}
           onSubmit={handleSubmitDeclaration}
-          onCancel={() => setDeclaringMailboxId(null)}
+          onCancel={() => setDeclarationState(null)}
         />
       </MobileLayout>
     );
@@ -68,7 +74,7 @@ export default function MapPage() {
         <div className="flex-1 relative">
           <InteractiveMap
             onDeclare={handleDeclare}
-            onViewDetails={handleViewDetails}
+            onViewTicket={handleViewTicket}
           />
         </div>
       </div>
