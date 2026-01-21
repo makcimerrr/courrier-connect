@@ -1,7 +1,12 @@
 import { AlertCircle, Clock, CheckCircle, Loader2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type TicketStatus = "signaled" | "in-progress" | "pending" | "resolved";
+export type TicketStatus =
+  | "signaled"
+  | "in-progress"
+  | "pending"
+  | "resolved"
+  | "action-required";
 
 interface StatusBadgeProps {
   status: TicketStatus;
@@ -38,6 +43,12 @@ const statusConfig: Record<
     icon: Clock,
     pulseColor: "bg-status-pending",
   },
+  "action-required": {
+    label: "Action requise",
+    className: "status-action-required",
+    icon: AlertTriangle,
+    pulseColor: "bg-status-action-required",
+  },
   resolved: {
     label: "Résolu",
     className: "status-resolved",
@@ -71,6 +82,20 @@ export function StatusBadge({
   className,
 }: StatusBadgeProps) {
   const config = statusConfig[status];
+  if (!config) {
+    console.error("Invalid status passed to StatusBadge:", status);
+
+    return (
+      <span
+        className={cn(
+          "status-badge inline-flex items-center rounded-full font-semibold",
+          "px-2 py-1 text-xs bg-gray-200 text-gray-700"
+        )}
+      >
+        Inconnu
+      </span>
+    );
+  }
   const Icon = config.icon;
   const sizeConfig = sizeClasses[size];
   const isActive = status !== "resolved";
