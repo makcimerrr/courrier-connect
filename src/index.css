@@ -148,6 +148,38 @@
     background-color: hsl(var(--status-resolved) / 0.15);
     color: hsl(var(--status-resolved));
   }
+  
+  .text-status-resolved {
+    color: hsl(var(--status-resolved));
+  }
+  
+  .bg-status-resolved\/10 {
+    background-color: hsl(var(--status-resolved) / 0.1);
+  }
+  
+  .bg-status-resolved\/15 {
+    background-color: hsl(var(--status-resolved) / 0.15);
+  }
+  
+  .text-status-signaled {
+    color: hsl(var(--status-signaled));
+  }
+  
+  .bg-status-signaled\/10 {
+    background-color: hsl(var(--status-signaled) / 0.1);
+  }
+  
+  .bg-status-signaled\/15 {
+    background-color: hsl(var(--status-signaled) / 0.15);
+  }
+  
+  .text-status-in-progress {
+    color: hsl(var(--status-in-progress));
+  }
+  
+  .bg-status-in-progress\/15 {
+    background-color: hsl(var(--status-in-progress) / 0.15);
+  }
 
   /* Map Pin Styles */
   .map-pin {
